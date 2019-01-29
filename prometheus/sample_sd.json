@@ -1,0 +1,11 @@
+// sample sd file, enabling Prometheus to pull metrics from two BFTList instances
+// running on the Docker host.
+[
+  {
+    "targets": ["host.docker.internal:6000", "host.docker.internal:6001"],
+    "labels": {
+      "env": "local",
+      "job": "bft_list"
+    }
+  }
+]

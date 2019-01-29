@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  grafana:
+    image: grafana/grafana:5.4.3
+    container_name: heimdall-grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+      - ./grafana/prom_datasource.yaml:/etc/grafana/provisioning/datasources/prom.yaml
+  prometheus:
+    image: prom/prometheus:v2.7.0
+    container_name: heimdall_prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus/data:/prometheus
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/sd.json:/prometheus/sd.json
+
+    
