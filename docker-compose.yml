@@ -13,10 +13,8 @@ services:
     image: prom/prometheus:v2.7.0
     container_name: heimdall_prometheus
     ports:
-      - 9090:9090
+      - 3001:9090
     volumes:
       - ./prometheus/data:/prometheus
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus/sd.json:/prometheus/sd.json
-
-    
