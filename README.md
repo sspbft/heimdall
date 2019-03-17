@@ -1,14 +1,14 @@
 # Heimdall
 Metrics environment used for gathering and visualization.
 
-First, make sure you have [Docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/) installed and then simply run `docker-compose up` and the Grafana container can be accessed on [localhost:3000](http://localhost:3000). Log in with `admin:admin` and start creating dashboards! The Grafana container is bootstrapped with a data source connected to the Prometheus container which is bootstrapped with metrics for the Prometheus service itself, just to demonstrate functionality. Remember to add the `prometheus/sd.json` file if dynamic service discovery is needed - otherwise it is fine to just modify `prometheus/prometheus.yml`.
+First, make sure you have [Docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/) installed and then simply run `docker-compose up` and the Grafana container can be accessed on [localhost:6060](http://localhost:6060). Log in with `admin:admin` and start creating dashboards! The Grafana container is bootstrapped with a data source connected to the Prometheus container which is bootstrapped with metrics for the Prometheus service itself, just to demonstrate functionality. Remember to add the `prometheus/sd.json` file if dynamic service discovery is needed - otherwise it is fine to just modify `prometheus/prometheus.yml`.
 
 ## Ports used
 
 | Port number   | Service                       | 
 | ------------- |:-----------------------------:|
-| 3000          | Grafana                       |
-| 3001          | Prometheus                    |
+| 6060          | Grafana                       |
+| 6061          | Prometheus                    |
 
 ## Adding targets to Prometheus
 The Prometheus container is setup to scan a file `prometheus/sd.json` to enable dynamic service discovery, which is utilized by us in our Thor + BFTList setup. We have setup Thor to automatically generate the `sd.json` file with the appropriate targets depending on how many instances are currently being run of BFTList. This makes it possible to run an arbitrary amount of nodes and automatically get metrics for all of these with zero configuration. 
