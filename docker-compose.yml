@@ -3,7 +3,7 @@ version: '3'
 services:
   grafana:
     image: grafana/grafana:5.4.3
-    container_name: heimdall-grafana
+    container_name: heimdall_grafana
     ports:
       - 6060:3000
     volumes:
