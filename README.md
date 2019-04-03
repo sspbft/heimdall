@@ -14,3 +14,20 @@ First, make sure you have [Docker](https://docs.docker.com/install/) and [docker
 The Prometheus container is setup to scan a file `prometheus/sd.json` to enable dynamic service discovery, which is utilized by us in our Thor + BFTList setup. We have setup Thor to automatically generate the `sd.json` file with the appropriate targets depending on how many instances are currently being run of BFTList. This makes it possible to run an arbitrary amount of nodes and automatically get metrics for all of these with zero configuration. 
 
 There is a sample json file, `prometheus/sample_sd.json` which can be used for testing when running two BFTList instances locally on ports.
+
+## Extracting data for visualization
+```
+cd scripts
+python3.7 -m venv env
+source env/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+### Extracting data for self-stabilization overhead experiment
+Run the following
+```
+cd scripts && source env/bin/activate
+python ss_overhead.py
+```
+CSV file with data points will then be available in `results/`.
