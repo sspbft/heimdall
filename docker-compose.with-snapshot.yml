@@ -18,8 +18,8 @@ services:
       - ./prometheus/data:/prometheus
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus/sd.json:/prometheus/sd.json
-      - ./prometheus/snapshots:/snapshots
+      - ./prometheus/old_snapshots:/old_snapshots
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--web.enable-admin-api'
-      - '--storage.tsdb.path=/snapshots/20190405T075603Z-220c61c6266b7a48'
+      - '--storage.tsdb.path=/old_snapshots/20190405T103734Z-584ac37fb519fc56'

@@ -5,5 +5,5 @@ env
 __pycache__
 scripts/results
 tmp
-snapshots
+old_snapshots
 .vscode

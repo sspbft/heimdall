@@ -31,4 +31,8 @@ def create_snapshot():
     url = f"{PROM_URL}/admin/tsdb/snapshot"
     logger.info("Creating Prometheus snapshot")
     r = requests.post(url)
-    return r.json()["data"]["name"]
+    res = r.json()
+    if res["status"] == "error":
+        raise ValueError(f"Got error when creating snapshot: {res['error']}")
+
+    return res["data"]["name"]

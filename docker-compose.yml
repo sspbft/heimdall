@@ -18,7 +18,6 @@ services:
       - ./prometheus/data:/prometheus
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - ./prometheus/sd.json:/prometheus/sd.json
-      - ./prometheus/snapshots:/snapshots
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--web.enable-admin-api'
