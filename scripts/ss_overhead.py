@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 EXPERIMENT = "ss_overhead"
-PROM_QUERY = (f"max(bottomk({api.get_number_of_byz()+1}, client_req_exec_time) by (state_length)) by (state_length)")
+PROM_QUERY = (f"bottomk({api.get_number_of_byz()+1}, client_req_exec_time) by (state_length)")
 
 def transform(time_series):
     data_points = []
@@ -18,9 +18,15 @@ def transform(time_series):
     data_asc = sorted(time_series, key=lambda m: float(m["metric"]["state_length"]))
 
     for el in data_asc:
+        print(el)
         x = int(el["metric"]["state_length"])
         y = str(float(el["value"][1])).replace(".", ",")
-        data_points.append({ "req": x, "exec_time": y })
+        total_msgs = int(el["metric"]["total_msgs_sent"])
+        total_bytes = int(el["metric"]["total_bytes_sent"])
+        int_msgs = int(el["metric"]["msgs_sent"])
+        int_bytes = int(el["metric"]["bytes_sent"])
+        data_points.append({ "req": x, "exec_time": y, "total_msg": total_msgs,
+                            "total_bytes": total_bytes, "msgs": int_msgs, "bytes": int_bytes})
 
     # build key:val pairs for data points and return
     return data_points
