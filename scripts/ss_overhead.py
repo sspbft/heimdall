@@ -26,7 +26,7 @@ def transform(time_series):
                 total_bytes = int(el["metric"]["total_bytes_sent"])
                 int_msgs = int(el["metric"]["msgs_sent"])
                 int_bytes = int(el["metric"]["bytes_sent"])
-                data_dct[x] = {"exec_time": y, "total_msg": total_msgs,
+                data_dct[x] = {"exec_time": y, "total_msgs": total_msgs,
                            "total_bytes": total_bytes, "msgs": int_msgs, "bytes": int_bytes}
 
         else:
@@ -36,7 +36,7 @@ def transform(time_series):
             total_bytes = int(el["metric"]["total_bytes_sent"])
             int_msgs = int(el["metric"]["msgs_sent"])
             int_bytes = int(el["metric"]["bytes_sent"])
-            data_dct[x] = {"exec_time": y, "total_msg": total_msgs,
+            data_dct[x] = {"exec_time": y, "total_msgs": total_msgs,
                            "total_bytes": total_bytes, "msgs": int_msgs, "bytes": int_bytes}
 
         
@@ -47,7 +47,7 @@ def transform(time_series):
         total_bytes = data_dct[res]["total_bytes"]
         int_msgs = data_dct[res]["msgs"]
         int_bytes = data_dct[res]["bytes"]
-        data_points.append({ "req": res, "exec_time": y, "total_msg": total_msgs,
+        data_points.append({ "req": res, "exec_time": y, "total_msgs": total_msgs,
                              "total_bytes": total_bytes, "msgs": int_msgs, "bytes": int_bytes})
 
     # build key:val pairs for data points and return
