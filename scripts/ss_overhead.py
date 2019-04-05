@@ -4,6 +4,7 @@
 import logging
 import api
 import helpers
+import sys
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -24,8 +25,17 @@ def transform(time_series):
     # build key:val pairs for data points and return
     return data_points
 
-if __name__ == "__main__":
+def main():
     logger.info("Starting data extraction for self-stabilization overhead experiment")
     results = api.get_time_series_for_q(PROM_QUERY)
+    if len(results) == 0:
+        logger.warning("No results found, quitting")
+        return
     data_points = transform(results)
-    helpers.write_to_csv(EXPERIMENT, data_points)
+    csv_path = helpers.write_to_csv(EXPERIMENT, data_points)
+    snapshot_path = helpers.get_snapshot()
+    helpers.collect_to_res_folder(EXPERIMENT, [csv_path, snapshot_path])
+    helpers.cleanup()
+
+if __name__ == "__main__":
+    main()

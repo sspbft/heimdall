@@ -31,3 +31,11 @@ cd scripts && source env/bin/activate
 python ss_overhead.py
 ```
 CSV file with data points will then be available in `results/`.
+
+### Importing a Prometheus snapshot
+```
+mkdir prometheus/snapshots
+cp -R PATH_TO_SNAPSHOT prometheus/snapshots
+```
+
+Uncomment last line in `docker-compose.yml` and enter the correct snapshot name and run `docker-compose up --force-recreate`, and all data in Prometheus will be loaded from the snapshot.

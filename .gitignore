@@ -4,3 +4,5 @@ sd.json
 env
 __pycache__
 scripts/results
+tmp
+snapshots

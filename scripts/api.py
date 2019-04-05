@@ -17,6 +17,8 @@ def get_number_of_byz():
 
 def get_number_of_nodes():
     data = get_time_series_for_q("count(up)")
+    if len(data) == 0:
+        return 0
     return int(data[0]["value"][1])
 
 def get_time_series_for_q(q):
@@ -24,3 +26,9 @@ def get_time_series_for_q(q):
     url = f"{PROM_URL}/query?query={q}"
     r = requests.get(url)
     return r.json()["data"]["result"]
+
+def create_snapshot():
+    url = f"{PROM_URL}/admin/tsdb/snapshot"
+    logger.info("Creating Prometheus snapshot")
+    r = requests.post(url)
+    return r.json()["data"]["name"]
