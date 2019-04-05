@@ -13,7 +13,6 @@ PROM_QUERY = (f"max(bottomk({4*api.get_number_of_byz()+1}, convergence_latency) 
 
 def transform(time_series):
     data_points = []
-    print(time_series)
     # sort data points ASC wrt state length, gives us client_reqs in ASC order
     data_asc = sorted(time_series, key=lambda m: float(m["metric"]["view"]))
 

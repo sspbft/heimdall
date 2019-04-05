@@ -62,7 +62,7 @@ def main():
     data_points = transform(results)
     csv_path = helpers.write_to_csv(EXPERIMENT, data_points)
     snapshot_path = helpers.get_snapshot()
-    helpers.collect_to_res_folder(EXPERIMENT, [csv_path, snapshot_path])
+    helpers.collect_to_res_folder(EXPERIMENT, [csv_path])
     helpers.cleanup()
 
 if __name__ == "__main__":

@@ -22,3 +22,4 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--web.enable-admin-api'
+      - '--storage.tsdb.path=/snapshots/20190405T075603Z-220c61c6266b7a48'
