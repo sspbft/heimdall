@@ -43,7 +43,7 @@ def transform(time_series):
     for res in data_dct:
         y = float(el["value"][1])
         y = str(data_dct[res]["exec_time"]).replace(".", ",")
-        total_msgs = data_dct[res]["total_msg"]
+        total_msgs = data_dct[res]["total_msgs"]
         total_bytes = data_dct[res]["total_bytes"]
         int_msgs = data_dct[res]["msgs"]
         int_bytes = data_dct[res]["bytes"]
