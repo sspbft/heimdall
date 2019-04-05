@@ -16,17 +16,39 @@ def transform(time_series):
     data_points = []
     # sort data points ASC wrt state length, gives us client_reqs in ASC order
     data_asc = sorted(time_series, key=lambda m: float(m["metric"]["state_length"]))
-
+    data_dct = {}
     for el in data_asc:
-        print(el)
         x = int(el["metric"]["state_length"])
-        y = str(float(el["value"][1])).replace(".", ",")
-        total_msgs = int(el["metric"]["total_msgs_sent"])
-        total_bytes = int(el["metric"]["total_bytes_sent"])
-        int_msgs = int(el["metric"]["msgs_sent"])
-        int_bytes = int(el["metric"]["bytes_sent"])
-        data_points.append({ "req": x, "exec_time": y, "total_msg": total_msgs,
-                            "total_bytes": total_bytes, "msgs": int_msgs, "bytes": int_bytes})
+        if x in data_dct:
+            if float(el["value"][1]) > data_dct[x].get("exec_time"):
+                y = float(el["value"][1])
+                total_msgs = int(el["metric"]["total_msgs_sent"])
+                total_bytes = int(el["metric"]["total_bytes_sent"])
+                int_msgs = int(el["metric"]["msgs_sent"])
+                int_bytes = int(el["metric"]["bytes_sent"])
+                data_dct[x] = {"exec_time": y, "total_msg": total_msgs,
+                           "total_bytes": total_bytes, "msgs": int_msgs, "bytes": int_bytes}
+
+        else:
+            #y = str(float(el["value"][1])).replace(".", ",")
+            y = float(el["value"][1])
+            total_msgs = int(el["metric"]["total_msgs_sent"])
+            total_bytes = int(el["metric"]["total_bytes_sent"])
+            int_msgs = int(el["metric"]["msgs_sent"])
+            int_bytes = int(el["metric"]["bytes_sent"])
+            data_dct[x] = {"exec_time": y, "total_msg": total_msgs,
+                           "total_bytes": total_bytes, "msgs": int_msgs, "bytes": int_bytes}
+
+        
+    for res in data_dct:
+        y = float(el["value"][1])
+        y = str(data_dct[res]["exec_time"]).replace(".", ",")
+        total_msgs = data_dct[res]["total_msg"]
+        total_bytes = data_dct[res]["total_bytes"]
+        int_msgs = data_dct[res]["msgs"]
+        int_bytes = data_dct[res]["bytes"]
+        data_points.append({ "req": res, "exec_time": y, "total_msg": total_msgs,
+                             "total_bytes": total_bytes, "msgs": int_msgs, "bytes": int_bytes})
 
     # build key:val pairs for data points and return
     return data_points
