@@ -18,7 +18,6 @@ def transform(time_series):
     data_asc = sorted(time_series, key=lambda m: float(m["metric"]["state_length"]))
 
     for el in data_asc:
-        print(el)
         x = int(el["metric"]["state_length"])
         y = str(float(el["value"][1])).replace(".", ",")
         total_msgs = int(el["metric"]["total_msgs_sent"])
@@ -40,7 +39,7 @@ def main():
     data_points = transform(results)
     csv_path = helpers.write_to_csv(EXPERIMENT, data_points)
     snapshot_path = helpers.get_snapshot()
-    helpers.collect_to_res_folder(EXPERIMENT, [csv_path, snapshot_path])
+    helpers.collect_to_res_folder(EXPERIMENT, [csv_path])
     helpers.cleanup()
 
 if __name__ == "__main__":
