@@ -16,7 +16,7 @@ def get_number_of_byz():
         return 3
 
 def get_number_of_nodes():
-    data = get_time_series_for_q("count(up) - 6")
+    data = get_time_series_for_q("count(up)-6")
     if len(data) == 0:
         return 0
     return int(data[0]["value"][1])

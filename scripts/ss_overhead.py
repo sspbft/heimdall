@@ -20,7 +20,6 @@ def transform(exec_time_series, msgs_sent_time_series, bts_sent_time_series):
     exec_time_asc = sorted(exec_time_series, key=lambda m: float(m["metric"]["state_length"]))
     msgs_sent_asc = sorted(msgs_sent_time_series, key=lambda m: float(m["metric"]["state_length"]))
     bts_sent_asc = sorted(bts_sent_time_series, key=lambda m: float(m["metric"]["state_length"]))
-    data_dct = {}
     for i in range(len(exec_time_asc)):
         if int(exec_time_asc[i]["metric"]["state_length"]) != int(msgs_sent_asc[i]["metric"]["state_length"]):
             raise ValueError("Results not matching")
