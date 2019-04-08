@@ -9,22 +9,23 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 EXPERIMENT = "convergence_latency"
-Q_CONV_LAT = (f"max(bottomk({4*api.get_number_of_byz()+1}, convergence_latency) by (view)) by (view)")
-Q_MSGS_SENT = f"sum(msgs_during_exp) by (state_length)"
-Q_BYTES_SENT = f"sum(bytes_during_exp) by (state_length)"
+#Q_CONV_LAT = (f"max(bottomk({4*api.get_number_of_byz()+1}, convergence_latency) by (view)) by (view)")
+Q_CONV_LAT = (f"max(bottomk(5, convergence_latency) by (view)) by (view)")
+Q_MSGS_SENT = f"sum(msgs_during_exp) by (exp_param)"
+Q_BYTES_SENT = f"sum(bytes_during_exp) by (exp_param)"
 
 def transform(conv_lat_time_series, msgs_sent_time_series, bts_sent_time_series):
     data_points = []
     # sort data points ASC wrt state length, gives us client_reqs in ASC order
     conv_lat_asc = sorted(conv_lat_time_series, key=lambda m: float(m["metric"]["view"]))
-    msgs_sent_asc = sorted(msgs_sent_time_series, key=lambda m: float(m["metric"]["view"]))
-    bts_sent_asc = sorted(bts_sent_time_series, key=lambda m: float(m["metric"]["view"]))
+    msgs_sent_asc = sorted(msgs_sent_time_series, key=lambda m: float(m["metric"]["exp_param"]))
+    bts_sent_asc = sorted(bts_sent_time_series, key=lambda m: float(m["metric"]["exp_param"]))
 
     for i in range(len(conv_lat_asc)):
-        if int(conv_lat_asc[i]["metric"]["view"]) != int(msgs_sent_asc[i]["metric"]["view"]):
-            raise ValueError("Results not matching")
-        view = int(conv_lat[i]["metric"]["view"])
-        conv_lat = str(float(conv_lat[i]["value"][1])).replace(".", ",")
+        # if int(conv_lat_asc[i]["metric"]["view"]) != int(msgs_sent_asc[i]["metric"]["exp_param"]):
+        #     raise ValueError("Results not matching")
+        conv_lat = str(float(conv_lat_asc[i]["value"][1])).replace(".", ",")
+        view = int(conv_lat_asc[i]["metric"]["view"])
         msgs_sent = int(msgs_sent_asc[i]["value"][1])
         bts_sent = int(bts_sent_asc[i]["value"][1])
         data_points.append({ "old_view": view, "conv_lat": conv_lat,

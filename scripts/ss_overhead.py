@@ -11,17 +11,17 @@ logger = logging.getLogger(__name__)
 
 EXPERIMENT = "ss_overhead"
 Q_EXEC_TIME = f"max(bottomk({api.get_number_of_byz()+1}, client_req_exec_time) by (state_length)) by (state_length)"
-Q_MSGS_SENT = f"sum(msgs_during_exp) by (state_length)"
-Q_BYTES_SENT = f"sum(bytes_during_exp) by (state_length)"
+Q_MSGS_SENT = f"sum(msgs_during_exp) by (exp_param)"
+Q_BYTES_SENT = f"sum(bytes_during_exp) by (exp_param)"
 
 def transform(exec_time_series, msgs_sent_time_series, bts_sent_time_series):
     data_points = []
     # sort data points ASC wrt state length, gives us client_reqs in ASC order
     exec_time_asc = sorted(exec_time_series, key=lambda m: float(m["metric"]["state_length"]))
-    msgs_sent_asc = sorted(msgs_sent_time_series, key=lambda m: float(m["metric"]["state_length"]))
-    bts_sent_asc = sorted(bts_sent_time_series, key=lambda m: float(m["metric"]["state_length"]))
+    msgs_sent_asc = sorted(msgs_sent_time_series, key=lambda m: float(m["metric"]["exp_param"]))
+    bts_sent_asc = sorted(bts_sent_time_series, key=lambda m: float(m["metric"]["exp_param"]))
     for i in range(len(exec_time_asc)):
-        if int(exec_time_asc[i]["metric"]["state_length"]) != int(msgs_sent_asc[i]["metric"]["state_length"]):
+        if int(exec_time_asc[i]["metric"]["state_length"]) != int(msgs_sent_asc[i]["metric"]["exp_param"]):
             raise ValueError("Results not matching")
         x = int(exec_time_asc[i]["metric"]["state_length"])
         exec_time = str(float(exec_time_asc[i]["value"][1])).replace(".", ",")
