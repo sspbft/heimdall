@@ -79,11 +79,11 @@ def main():
 
     logger.info(f"\n\n### Result ###\n" +
                 f"### Message distribution ###\n" +
-                f"{VE}: {round(msg_dist[VE])}%\n{REP}: {round(msg_dist[REP])}%\n" +
-                f"{PM}: {round(msg_dist[PM])}%\n{FD}: {round(msg_dist[FD])}%" + 
+                f"{VE}: {round(msg_dist[VE], 1)}%\n{REP}: {round(msg_dist[REP], 1)}%\n" +
+                f"{PM}: {round(msg_dist[PM], 1)}%\n{FD}: {round(msg_dist[FD], 1)}%" + 
                 f"\n\n### Bytes distribution ###\n" +
-                f"{VE}: {round(bytes_dist[VE])}%\n{REP}: {round(bytes_dist[REP])}%\n" +
-                f"{PM}: {round(bytes_dist[PM])}%\n{FD}: {round(bytes_dist[FD])}%")
+                f"{VE}: {round(bytes_dist[VE], 1)}%\n{REP}: {round(bytes_dist[REP], 1)}%\n" +
+                f"{PM}: {round(bytes_dist[PM], 1)}%\n{FD}: {round(bytes_dist[FD], 1)}%")
 
 if __name__ == "__main__":
     main()
