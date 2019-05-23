@@ -8,9 +8,9 @@ PROM_URL = "http://localhost:6061/api/v1"
 
 def get_number_of_byz():
     n = get_number_of_nodes()
-    if n == 6:
+    if n < 11:
         return 1
-    elif n > 6 and n <= 12:
+    elif n < 16:
         return 2
     else:
         return 3
