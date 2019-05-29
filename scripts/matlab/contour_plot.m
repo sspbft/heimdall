@@ -13,6 +13,6 @@ colormap( flipud(gray(256)) )
 clabel(C,h);
 colorbar
 yticks(6:3:12)
-xlabel('Request number')
+xlabel('Executed requests')
 ylabel('Number of nodes')
 zlabel('Execution time')

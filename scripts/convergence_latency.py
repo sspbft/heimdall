@@ -9,8 +9,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 EXPERIMENT = "convergence_latency"
-Q_CONV_LAT = (f"max(bottomk(11, convergence_latency) by (view)) by (view)")
-# Q_CONV_LAT = (f"max(bottomk({api.get_number_of_nodes() - api.get_number_of_byz()}, convergence_latency) by (view)) by (view)")
+# Q_CONV_LAT = (f"max(bottomk(11, convergence_latency) by (view)) by (view)")
+Q_CONV_LAT = (f"max(bottomk({api.get_number_of_nodes() - api.get_number_of_byz()}, convergence_latency) by (view)) by (view)")
 Q_MSGS_SENT = f"sum(msgs_during_exp) by (exp_param)"
 Q_BYTES_SENT = f"sum(bytes_during_exp) by (exp_param)"
 

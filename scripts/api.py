@@ -5,6 +5,7 @@ import api
 logger = logging.getLogger(__name__)
 
 PROM_URL = "http://localhost:6061/api/v1"
+NODE_COUNT = 6
 
 def get_number_of_byz():
     n = get_number_of_nodes()
@@ -16,7 +17,7 @@ def get_number_of_byz():
         return 3
 
 def get_number_of_nodes():
-    data = get_time_series_for_q('count(up{job="bft-list"})')
+    data = get_time_series_for_q('count(up{job="bft-list"} == 1)')
     if len(data) == 0:
         return 0
     return int(data[0]["value"][1])

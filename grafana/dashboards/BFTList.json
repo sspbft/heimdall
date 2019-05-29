@@ -93,7 +93,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "count(up)",
+          "expr": "count(up{job=\"bft-list\"} == 1)",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -411,7 +411,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "min(state_length_total)",
+          "expr": "max(topk(4, state_length_total))",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -558,7 +558,7 @@
         "x": 8,
         "y": 10
       },
-      "id": 18,
+      "id": 39,
       "legend": {
         "avg": false,
         "current": false,
@@ -582,10 +582,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(msg_sent_total[1m])",
+          "expr": "sum(msg_sent_total) by (msg_type)",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{msg_type}}",
           "refId": "A"
         }
       ],
@@ -593,7 +593,101 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Message rate per node",
+      "title": "Message distribution",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "Average message rate": "#1f78c1"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "fill": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 16,
+        "y": 10
+      },
+      "id": 37,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 3,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "irate(msg_sent_total[1m])",
+          "format": "time_series",
+          "hide": true,
+          "intervalFactor": 1,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        },
+        {
+          "expr": "avg(irate(msg_sent_total[1m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Average message rate",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Message rate",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -835,7 +929,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "avg(allow_service_rtt) by (instance)",
+          "expr": "avg(convergence_latency) by (instance)",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
@@ -976,19 +1070,6 @@
         "x": 0,
         "y": 37
       },
-      "id": 12,
-      "panels": [],
-      "title": "System health",
-      "type": "row"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 38
-      },
       "id": 6,
       "panels": [],
       "title": "Messages",
@@ -1004,7 +1085,7 @@
         "h": 8,
         "w": 9,
         "x": 0,
-        "y": 39
+        "y": 38
       },
       "id": 19,
       "legend": {
@@ -1088,7 +1169,7 @@
         "h": 8,
         "w": 9,
         "x": 9,
-        "y": 39
+        "y": 38
       },
       "id": 4,
       "legend": {
@@ -1202,5 +1283,5 @@
   "timezone": "",
   "title": "BFTList",
   "uid": "MTWFVplmz",
-  "version": 20
+  "version": 37
 }
