@@ -11,7 +11,7 @@ First, make sure you have [Docker](https://docs.docker.com/install/) and [docker
 | 6061          | Prometheus                    |
 
 ## Adding targets to Prometheus
-The Prometheus container is setup to scan a file `prometheus/sd.json` to enable dynamic service discovery, which is utilized by us in our Thor + BFTList setup. We have setup Thor to automatically generate the `sd.json` file with the appropriate targets depending on how many instances are currently being run of BFTList. This makes it possible to run an arbitrary amount of nodes and automatically get metrics for all of these with zero configuration. 
+The Prometheus container is setup to scan a file `prometheus/sd.json` to enable dynamic service discovery, which is utilized by us in our [Thor](https://github.com/sspbft/thor) + [BFTList](https://github.com/sspbft/BFTlist) setup. We have setup Thor to automatically generate the `sd.json` file with the appropriate targets depending on how many instances are currently being run of BFTList. This makes it possible to run an arbitrary amount of nodes and automatically get metrics for all of these with zero configuration. 
 
 There is a sample json file, `prometheus/sample_sd.json` which can be used for testing when running two BFTList instances locally on ports.
 
@@ -38,4 +38,4 @@ mkdir prometheus/snapshots
 cp -R PATH_TO_SNAPSHOT prometheus/snapshots
 ```
 
-Modify the last line in `docker-compose.yml` and enter the correct snapshot name and run `docker-compose -f docker-compose.with-snapshot.yml up --force-recreate`, and all data in Prometheus will be loaded from the snapshot.
+Modify the last line in `docker-compose.with-snapshot.yml` and enter the correct snapshot name and run `docker-compose -f docker-compose.with-snapshot.yml up --force-recreate`, and all data in Prometheus will be loaded from the snapshot.
